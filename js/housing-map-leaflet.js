@@ -27,9 +27,11 @@ function highlightFeature(e) {
 
     layer.setStyle({
         weight: 4,
-        color: '#333',
+        color: '#98AFC7',
         fillOpacity: 0.7
     });
+
+    info.update(layer.feature.properties);
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
@@ -38,6 +40,7 @@ function highlightFeature(e) {
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
+    info.update();
 }
 
 function zoomToFeature(e) {
@@ -52,6 +55,23 @@ function onEachFeature(feature, layer) {
         click: zoomToFeature
     });
 }
+
+var info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+
+// method that we will use to update the control based on feature properties passed
+info.update = function (props) {
+    this._div.innerHTML = '<h4> Housing Trust Fund Map </h4>' +  (props ?
+        '<b>' + props.name + '</b><br />' + props.district_n 
+        : 'Hover over a state');
+};
+
+info.addTo(map);
 
 geojson = L.geoJson(ldshapes, {
     style: style,
