@@ -17,8 +17,8 @@ function style(feature) {
         //fillColor: getColor(feature.properties.density),
         weight: 2,
         opacity: 1,
-        color: 'white',
-        fillOpacity: 0.7
+        color: 'gray',
+        fillOpacity: 0
     };
 }
 
