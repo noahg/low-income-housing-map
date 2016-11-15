@@ -2,7 +2,12 @@ mapboxAccessToken = 'pk.eyJ1Ijoibm9haGciLCJhIjoiaDZOQVlFayJ9.sKF3imccqs6EJE57Y3j
 
 startingBounds = [47.27, -120.82];
 
-var map = L.map('map').setView(startingBounds, 8);
+
+function getZoom() {
+  return 7;
+}
+
+var map = L.map('map').setView(startingBounds, getZoom());
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken , {
   maxZoom: 18,
