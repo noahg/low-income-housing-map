@@ -74,10 +74,12 @@ function onEachFeature(feature, layer) {
         click: zoomToFeature
     });
 
-if (feature.properties && feature.properties.name) {
-        layer.bindPopup(feature.properties.name);
+    if (feature.properties) {
+        layer.bindPopup("<span id='storyTitle'>Jane Doe's Story</span><br> from Legislative District " + feature.properties.district_n
+          + '<br><span><img width="100%" src="assets/story-photo.png"</span>'
+         );
     }
-}
+};
 
 districtNumber.update = function (props) {
   this.innerHTML = props.district_n
