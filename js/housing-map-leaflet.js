@@ -7,7 +7,8 @@ colorPalatte = {
   'dark_gray': '#505555',
   'green': '#238594',
   'orange': '#DF5330',
-  'red': '#DF5330'
+  'red': '#C4222A',
+  'dark_red': '#C4222A',
 };
 
 function getZoom() {
