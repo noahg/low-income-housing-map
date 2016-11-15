@@ -1,7 +1,13 @@
 mapboxAccessToken = 'pk.eyJ1Ijoibm9haGciLCJhIjoiaDZOQVlFayJ9.sKF3imccqs6EJE57Y3j2SA';
 
 startingBounds = [47.27, -120.82];
-
+var colorPalatte = {
+  'gray': '#DF5330',
+  'dark_gray': '#505555',
+  'green': '#238594',
+  'orange': '#DF5330',
+  'red': '#DF5330'
+}
 
 function getZoom() {
   return 7;
@@ -28,9 +34,9 @@ info.onAdd = function (map) {
 function style(feature) {
     return {
         //fillColor: getColor(feature.properties.density),
-        weight: 2,
+        weight: 1,
         opacity: 1,
-        color: 'gray',
+        color: colorPalatte.green,
         fillOpacity: 0
     };
 }
@@ -39,9 +45,9 @@ function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-        weight: 4,
-        color: '#98AFC7',
-        fillOpacity: 0.7
+        weight: 2,
+        color: colorPalatte.dark_gray,
+        fillOpacity: 0
     });
 
     info.update(layer.feature.properties);
