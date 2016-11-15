@@ -40,10 +40,6 @@ body {
 	color: #C4222A;
 }
 
-img #storyPhoto {
-	width: 20px;
-}
-
 @media (orientation: landscape) {
 
 	#sidebar {

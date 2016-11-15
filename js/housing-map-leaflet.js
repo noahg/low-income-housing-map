@@ -32,7 +32,6 @@ var districtNumberDiv = document.getElementById('districtNumber');
 
 function style(feature) {
     return {
-        //fillColor: colorPalatte.orange,
         weight: 2,
         opacity: 1,
         color: colorPalatte.green,
@@ -44,7 +43,6 @@ function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-        //fillColor: colorPalatte.orange,
         weight: 3,
         color: colorPalatte.dark_gray,
         fillOpacity: 0.2,
@@ -76,7 +74,7 @@ function onEachFeature(feature, layer) {
 
     if (feature.properties) {
         layer.bindPopup("<span id='storyTitle'>Jane Doe's Story</span><br> from Legislative District " + feature.properties.district_n
-          + '<br><span><img width="100%" src="assets/story-photo.png"</span>'
+          + '<br><span"><img width="80%" src="assets/story-photo.png"></span>'
           + '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac dapibus enim, et aliquam nisi. Praesent eu laoreet risus, quis malesuada tellus. Vivamus vestibulum ef citur tortor, eu faucibus mi sollicitudin vitae. Ut eu sagittis sapien, a luctus dolor.</p>'
          );
     }
