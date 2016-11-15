@@ -1,7 +1,8 @@
 mapboxAccessToken = 'pk.eyJ1Ijoibm9haGciLCJhIjoiaDZOQVlFayJ9.sKF3imccqs6EJE57Y3j2SA';
 
+startingBounds = [47.27, -120.82];
 
-var map = L.map('map').setView([47.27, -120.82], 8);
+var map = L.map('map').setView(startingBounds, 8);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken , {
   maxZoom: 18,
@@ -11,6 +12,13 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
   id: 'mapbox.light'
 }).addTo(map);
 
+var info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
 
 function style(feature) {
     return {
@@ -38,6 +46,7 @@ function highlightFeature(e) {
     }
 }
 
+
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
     info.update();
@@ -54,15 +63,12 @@ function onEachFeature(feature, layer) {
         mouseout: resetHighlight,
         click: zoomToFeature
     });
+
+if (feature.properties && feature.properties.name) {
+        layer.bindPopup(feature.properties.name);
+    }
 }
 
-var info = L.control();
-
-info.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-    this.update();
-    return this._div;
-};
 
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
