@@ -10,17 +10,34 @@ body {
 	width:100%; 
 }
 
-#sidebar {
-	position: absolute;  
-	top: 0; 
-	width: 300px;
-	background: rgba(255,255,255,0.8);
-	border-radius: 4px;
-}
-
-
-
-
 .leaflet-popup-content {
 	margin: 1px 4px;
 }
+
+@media (orientation: landscape) {
+
+	#sidebar {
+		position: absolute;  
+		top: 0;
+		width: 35%;
+		background: rgba(255,255,255,0.8);
+		border-radius: 4px;
+	}
+
+}
+
+
+@media (orientation: portrait) {
+
+	#sidebar {
+		position: absolute;  
+		bottom: 0; 
+		height: 30%;
+		width: 100%;
+		background: rgba(255,255,255,0.8);
+		border-radius: 4px;
+	}
+
+}
+
+

@@ -1,16 +1,18 @@
 mapboxAccessToken = 'pk.eyJ1Ijoibm9haGciLCJhIjoiaDZOQVlFayJ9.sKF3imccqs6EJE57Y3j2SA';
 
 startingBounds = [47.27, -120.82];
-var colorPalatte = {
+
+colorPalatte = {
   'gray': '#DF5330',
   'dark_gray': '#505555',
   'green': '#238594',
   'orange': '#DF5330',
   'red': '#DF5330'
-}
+};
 
 function getZoom() {
-  return 7;
+  zoom = 7
+  return zoom;
 }
 
 var map = L.map('map', {zoomControl: false}).setView(startingBounds, getZoom());
