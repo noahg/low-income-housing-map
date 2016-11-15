@@ -10,14 +10,27 @@ body {
 	width:100%; 
 }
 
-#sidebar {
- 	position: absolute;
- 	top: 0; 
-	width: 400px;
-	z-index: 2; 
-	background-color: rgba(255,255,255,0.7);
- }
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h2 {
+    margin: 0 0 5px;
+    color: #777;
+}
 
- #title {
- 	text-align: center;
- }
+.info district-number{
+	font-size: 40px;
+}
+
+
+#sidebar {
+	position:absolute;  
+	bottom:0; 
+	width:300px;
+	background: rgba(255,255,255,0.8);
+}

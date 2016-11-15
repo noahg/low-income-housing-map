@@ -25,7 +25,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
-var info = L.control();
+var info = L.control({ position: 'topleft' });
 
 info.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -82,11 +82,10 @@ if (feature.properties && feature.properties.name) {
     }
 }
 
-
-// method that we will use to update the control based on feature properties passed
-info.update = function (props) {
-    this._div.innerHTML = '<h4> Housing Trust Fund Map </h4>' +  (props ?
-        '<b>' + props.name + '</b><br />' + props.district_n 
+info.update = function (props) { 
+    this._div.innerHTML = '<h2> Housing Trust Fund Map </h2>' +  (props ?
+        '<span id="district-name">' + props.name + '</span><br />' +
+        '<span id="district-number">' + props.district_n + '</span><br />'
         : 'Hover over a state');
 };
 
