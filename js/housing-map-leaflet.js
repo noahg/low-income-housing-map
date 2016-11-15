@@ -25,18 +25,12 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
-var info = L.control({ position: 'topleft' });
-
-info.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-    this.update();
-    return this._div;
-};
+var districtNumberDiv = document.getElementById('districtNumber');
 
 function style(feature) {
     return {
-        //fillColor: getColor(feature.properties.density),
-        weight: 1,
+        //fillColor: colorPalatte.orange,
+        weight: 2,
         opacity: 1,
         color: colorPalatte.green,
         fillOpacity: 0
@@ -47,12 +41,13 @@ function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-        weight: 2,
+        //fillColor: colorPalatte.orange,
+        weight: 3,
         color: colorPalatte.dark_gray,
-        fillOpacity: 0
+        fillOpacity: 0.2,
     });
 
-    info.update(layer.feature.properties);
+    districtNumberDiv.update(layer.feature.properties);
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
@@ -62,7 +57,6 @@ function highlightFeature(e) {
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
-    info.update();
 }
 
 function zoomToFeature(e) {
@@ -82,14 +76,9 @@ if (feature.properties && feature.properties.name) {
     }
 }
 
-info.update = function (props) { 
-    this._div.innerHTML = '<h2> Housing Trust Fund Map </h2>' +  (props ?
-        '<span id="district-name">' + props.name + '</span><br />' +
-        '<span id="district-number">' + props.district_n + '</span><br />'
-        : 'Hover over a state');
-};
-
-info.addTo(map);
+districtNumber.update = function (props) {
+  this.innerHTML = props.district_n
+}
 
 geojson = L.geoJson(ldshapes, {
     style: style,
