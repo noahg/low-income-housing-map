@@ -13,7 +13,7 @@ function getZoom() {
   return 7;
 }
 
-var map = L.map('map').setView(startingBounds, getZoom());
+var map = L.map('map', {zoomControl: false}).setView(startingBounds, getZoom());
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken , {
   maxZoom: 18,
@@ -22,6 +22,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
     'Imagery © <a href="http://mapbox.com">Mapbox</a>',
   id: 'mapbox.light'
 }).addTo(map);
+
+new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
 var info = L.control();
 
