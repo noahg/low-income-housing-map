@@ -22,7 +22,11 @@ body {
 #districtNumber {
 	font-size: 3em;
 	font-weight: bold;
+	color: white;
+}
 
+#districtNumberContainer {
+	background-color: #C4222A;
 }
 
 #storyTitle {
