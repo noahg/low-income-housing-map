@@ -77,6 +77,7 @@ function onEachFeature(feature, layer) {
     if (feature.properties) {
         layer.bindPopup("<span id='storyTitle'>Jane Doe's Story</span><br> from Legislative District " + feature.properties.district_n
           + '<br><span><img width="100%" src="assets/story-photo.png"</span>'
+          + '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac dapibus enim, et aliquam nisi. Praesent eu laoreet risus, quis malesuada tellus. Vivamus vestibulum ef citur tortor, eu faucibus mi sollicitudin vitae. Ut eu sagittis sapien, a luctus dolor.</p>'
          );
     }
 };
