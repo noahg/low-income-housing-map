@@ -16,7 +16,12 @@ body {
 
 #districtTitle {
 	font-size: 3em;
-	font-weight: bold;
+	/*font-weight: bold;*/
+	color: white;
+}
+
+#districtTitleContainer {
+	background-color: #505555;
 }
 
 #districtNumber {
