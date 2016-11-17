@@ -1,5 +1,6 @@
 mapboxAccessToken = 'pk.eyJ1Ijoibm9haGciLCJhIjoiaDZOQVlFayJ9.sKF3imccqs6EJE57Y3j2SA';
 googleDocStoryDatabase = 'https://spreadsheets.google.com/feeds/list/1PUVQ6n10JfoXcNiJm_pXnnl8q2IaO-DJrfkXtE35MiE/1/public/full?alt=json'
+attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imagery © <a href="http://mapbox.com">Mapbox</a>'
 
 startingBounds = [47.27, -120.82];
 
@@ -21,17 +22,15 @@ var map = L.map('map', {zoomControl: false}).setView(startingBounds, getZoom());
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken , {
   maxZoom: 18,
-  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+  attribution: attributionText,
   id: 'mapbox.light'
 }).addTo(map);
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
 var districtNumberDiv = document.getElementById('districtNumber');
-var districtNumberDiv = document.getElementById('districtNumber');
-var districtNumberDiv = document.getElementById('districtNumber');
+var htfUnitsValueDiv = document.getElementById('htfUnitsValue');
+var homelessSchoolchildrenValueDiv = document.getElementById('homelessSchoolchildrenValue');
 
 function style(feature) {
     return {
@@ -52,6 +51,8 @@ function highlightFeature(e) {
     });
 
     districtNumberDiv.update(layer.feature.properties);
+    htfUnitsValueDiv.update(layer.feature.properties);
+    homelessSchoolchildrenValueDiv.update(layer.feature.properties);
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
@@ -85,6 +86,14 @@ function onEachFeature(feature, layer) {
 
 districtNumber.update = function (props) {
   this.innerHTML = props.district_n
+}
+
+htfUnitsValueDiv.update = function (props) {
+  this.innerHTML = props.htf_units
+}
+
+homelessSchoolchildrenValueDiv.update = function (props) {
+  this.innerHTML = props.homeless_s
 }
 
 geojson = L.geoJson(ldshapes, {

@@ -48,6 +48,10 @@ body {
 	font-size: 1.5em;
 }
 
+.logoGreen {
+	color: #238594;
+}
+
 @media (orientation: landscape) {
 
 	#sidebar {
