@@ -40,6 +40,14 @@ body {
 	color: #C4222A;
 }
 
+.sidebarField {
+	font-weight: bold;
+}
+
+.fieldValue {
+	font-size: 1.5em;
+}
+
 @media (orientation: landscape) {
 
 	#sidebar {
