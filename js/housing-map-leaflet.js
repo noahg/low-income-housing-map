@@ -1,4 +1,5 @@
 mapboxAccessToken = 'pk.eyJ1Ijoibm9haGciLCJhIjoiaDZOQVlFayJ9.sKF3imccqs6EJE57Y3j2SA';
+googleDocStoryDatabase = 'https://spreadsheets.google.com/feeds/list/1PUVQ6n10JfoXcNiJm_pXnnl8q2IaO-DJrfkXtE35MiE/1/public/full?alt=json'
 
 startingBounds = [47.27, -120.82];
 
@@ -28,6 +29,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
+var districtNumberDiv = document.getElementById('districtNumber');
+var districtNumberDiv = document.getElementById('districtNumber');
 var districtNumberDiv = document.getElementById('districtNumber');
 
 function style(feature) {
@@ -88,3 +91,16 @@ geojson = L.geoJson(ldshapes, {
     style: style,
     onEachFeature: onEachFeature
 }).addTo(map);
+
+
+$.getJSON(googleDocStoryDatabase, function(data) {
+
+  var entry = data.feed.entry;
+
+  $(entry).each(function(){
+    // Column names are name, age, etc.
+    //$('.results').prepend('<h2>'+this.gsx$name.$t+'</h2><p>'+this.gsx$age.$t+'</p>');
+    console.log(this.gsx$ld.$t + ' ' + this.gsx$storytitle.$t)
+  });
+
+});
