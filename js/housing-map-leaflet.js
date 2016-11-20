@@ -89,7 +89,7 @@ districtNumber.update = function (props) {
 }
 
 htfUnitsValueDiv.update = function (props) {
-  this.innerHTML = props.htf_units
+  this.innerHTML = props.totalunits
 }
 
 homelessSchoolchildrenValueDiv.update = function (props) {
