@@ -89,11 +89,15 @@ districtNumber.update = function (props) {
 }
 
 htfUnitsValueDiv.update = function (props) {
-  this.innerHTML = props.totalunits
+  var number = props.totalunits
+  var string = numeral(number).format('0,0');
+  this.innerHTML = string
 }
 
 homelessSchoolchildrenValueDiv.update = function (props) {
-  this.innerHTML = props.homeless_s
+  var number = props.homeless_s
+  var string = numeral(number).format('0,0');
+  this.innerHTML = string
 }
 
 geojson = L.geoJson(ldshapes, {
