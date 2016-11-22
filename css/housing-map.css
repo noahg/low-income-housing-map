@@ -52,6 +52,14 @@ body {
 	color: #238594;
 }
 
+.alignRight {
+	text-align: right;
+}
+
+.alignLeft {
+	text-align: left;
+}
+
 @media (orientation: landscape) {
 
 	#sidebar {
