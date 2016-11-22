@@ -57,7 +57,7 @@ body {
 	#sidebar {
 		position: absolute;  
 		top: 0;
-		width: 35%;
+		width: 40%;
 		background: rgba(255,255,255,0.8);
 		border-radius: 4px;
 		padding-left: 16px;
@@ -71,7 +71,7 @@ body {
 	#sidebar {
 		position: absolute;  
 		bottom: 0; 
-		height: 30%;
+		height: 35%;
 		width: 100%;
 		background: rgba(255,255,255,0.8);
 		border-radius: 4px;
