@@ -81,15 +81,19 @@ function onEachFeature(feature, layer) {
         click: zoomToFeature
     });
 
-    if (feature.properties) {
+    if (feature.properties.story_title) {
         layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title + 
           "</span><br> from Legislative District " + feature.properties.district_n
           + '<br><span"><img width="80%" src="assets/story-photo.png"></span>'
           + '<p>' + feature.properties.story_text+ '</p>'
          );
-
-    console.log('adding popups')
-    }
+    } else {
+      layer.bindPopup("<span id='storyTitle'>" + "Story Title" +
+          "</span><br> from Legislative District " + feature.properties.district_n
+          + '<br><span"><img width="80%" src="assets/story-photo.png"></span>'
+          + '<p>' + 'Story Text Description' + '</p>'
+        );
+    };
 };
 
 districtNumber.update = function (props) {
