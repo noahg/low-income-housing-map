@@ -44,6 +44,11 @@ body {
 	font-weight: bold;
 }
 
+#sidebarFooter {
+	background-color: inherit /*#DF5330*/;
+	height: 15px;
+}
+
 .fieldValue {
 	font-size: 1.5em;
 }
