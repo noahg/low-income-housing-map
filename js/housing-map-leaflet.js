@@ -15,6 +15,37 @@ colorPalatte = {
   'dark_red': '#C4222A',
 };
 
+
+function addField(id, field_name, field_value) {
+    ldshapes.features[id].properties[field_name] = field_value;
+};
+
+$.getJSON(googleDocStoryDatabase, function(data) {
+
+  var entry = data.feed.entry;
+
+  $(entry).each(function(){
+
+    //console.log(this.gsx$ld.$t + ' ' + this.gsx$storytitle.$t)
+
+    var id = this.gsx$ld.$t - 1
+
+    if (this.gsx$storytitle.$t) {
+        addField(id, 'story_title', this.gsx$storytitle.$t);
+        console.log(this.gsx$storytitle.$t);
+    };
+
+    if (this.gsx$storytext.$t) {
+        addField(id, 'story_text', this.gsx$storytext.$t);
+    };
+
+    console.log('adding fields')
+
+
+  });
+
+});
+
 function getZoom() {
   zoom = 7
   return zoom;
@@ -41,7 +72,7 @@ function style(feature) {
         color: colorPalatte.green,
         fillOpacity: 0
     };
-}
+};
 
 function highlightFeature(e) {
     var layer = e.target;
@@ -59,8 +90,7 @@ function highlightFeature(e) {
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         layer.bringToFront();
     }
-}
-
+};
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
@@ -79,10 +109,13 @@ function onEachFeature(feature, layer) {
     });
 
     if (feature.properties) {
-        layer.bindPopup("<span id='storyTitle'>Jane Doe's Story</span><br> from Legislative District " + feature.properties.district_n
+        layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title + 
+          "</span><br> from Legislative District " + feature.properties.district_n
           + '<br><span"><img width="80%" src="assets/story-photo.png"></span>'
-          + '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac dapibus enim, et aliquam nisi. Praesent eu laoreet risus, quis malesuada tellus. Vivamus vestibulum ef citur tortor, eu faucibus mi sollicitudin vitae. Ut eu sagittis sapien, a luctus dolor.</p>'
+          + '<p>' + feature.properties.story_text+ '</p>'
          );
+
+    console.log('adding popups')
     }
 };
 
@@ -102,31 +135,7 @@ homelessSchoolchildrenValueDiv.update = function (props) {
   this.innerHTML = string
 };
 
-function addField(id, field_name, field_value) {
-    ldshapes.features[id].properties[field_name] = field_value;
-};
-
 geojson = L.geoJson(ldshapes, {
     style: style,
     onEachFeature: onEachFeature
 }).addTo(map);
-
-
-$.getJSON(googleDocStoryDatabase, function(data) {
-
-  var entry = data.feed.entry;
-
-  $(entry).each(function(){
-
-    //console.log(this.gsx$ld.$t + ' ' + this.gsx$storytitle.$t)
-
-    if (this.gsx$storytitle.$t) {
-        var id = this.gsx$ld.$t - 1
-        console.log(id)
-        addField(id, 'story_title', this.gsx$storytitle.$t);
-    };
-
-
-  });
-
-});
