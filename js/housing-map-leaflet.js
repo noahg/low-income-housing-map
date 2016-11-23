@@ -15,41 +15,14 @@ colorPalatte = {
   'dark_red': '#C4222A',
 };
 
-
 function addField(id, field_name, field_value) {
     ldshapes.features[id].properties[field_name] = field_value;
 };
 
-$.getJSON(googleDocStoryDatabase, function(data) {
-
-  var entry = data.feed.entry;
-
-  $(entry).each(function(){
-
-    //console.log(this.gsx$ld.$t + ' ' + this.gsx$storytitle.$t)
-
-    var id = this.gsx$ld.$t - 1
-
-    if (this.gsx$storytitle.$t) {
-        addField(id, 'story_title', this.gsx$storytitle.$t);
-        console.log(this.gsx$storytitle.$t);
-    };
-
-    if (this.gsx$storytext.$t) {
-        addField(id, 'story_text', this.gsx$storytext.$t);
-    };
-
-    console.log('adding fields')
-
-
-  });
-
-});
-
 function getZoom() {
   zoom = 7
   return zoom;
-}
+};
 
 var map = L.map('map', {zoomControl: false}).setView(startingBounds, getZoom());
 
@@ -94,11 +67,11 @@ function highlightFeature(e) {
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
-}
+};
 
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
-}
+};
 
 
 function onEachFeature(feature, layer) {
@@ -135,7 +108,31 @@ homelessSchoolchildrenValueDiv.update = function (props) {
   this.innerHTML = string
 };
 
-geojson = L.geoJson(ldshapes, {
+$.getJSON(googleDocStoryDatabase, function(data) {
+
+  var entry = data.feed.entry;
+
+  $(entry).each(function(){
+
+    //console.log(this.gsx$ld.$t + ' ' + this.gsx$storytitle.$t)
+
+    var id = this.gsx$ld.$t - 1
+
+    if (this.gsx$storytitle.$t) {
+        addField(id, 'story_title', this.gsx$storytitle.$t);
+        console.log(this.gsx$storytitle.$t);
+    };
+
+    if (this.gsx$storytext.$t) {
+        addField(id, 'story_text', this.gsx$storytext.$t);
+    };
+
+  });
+
+  geojson = L.geoJson(ldshapes, {
     style: style,
     onEachFeature: onEachFeature
-}).addTo(map);
+  }).addTo(map);
+
+});
+
