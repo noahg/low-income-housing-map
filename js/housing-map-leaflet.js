@@ -86,7 +86,7 @@ function onEachFeature(feature, layer) {
     if (feature.properties.story_title) {
         layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title + 
           "</span><br> from Legislative District " + feature.properties.district_n
-          + '<br><span"><img width="80%" src="assets/story-photo.png"></span>'
+          + '<br><span"><img width="80%" src="' + feature.properties.story_photo_url +'"></span>'
           + '<p>' + feature.properties.story_text+ '</p>'
          );
     } else {
@@ -131,6 +131,10 @@ $.getJSON(googleDocStoryDatabase, function(data) {
 
     if (this.gsx$storytext.$t) {
         addField(id, 'story_text', this.gsx$storytext.$t);
+    };
+
+    if (this.gsx$storyphotourl.$t) {
+        addField(id, 'story_photo_url', this.gsx$storyphotourl.$t);
     };
 
   });
