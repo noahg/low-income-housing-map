@@ -88,11 +88,11 @@ function onEachFeature(feature, layer) {
           + '<p>' + feature.properties.story_text+ '</p>'
          );
     } else {
-      layer.bindPopup("<span id='storyTitle'>" + "Story Title" +
-          "</span><br> from Legislative District " + feature.properties.district_n
-          + '<br><span"><img width="80%" src="assets/story-photo.png"></span>'
-          + '<p>' + 'Story Text Description' + '</p>'
-        );
+      //layer.bindPopup("<span id='storyTitle'>" + "Story Title" +
+      //    "</span><br> from Legislative District " + feature.properties.district_n
+      //    + '<br><span"><img width="80%" src="assets/story-photo.png"></span>'
+      //    + '<p>' + 'Story Text Description' + '</p>'
+      //  );
     };
 };
 
