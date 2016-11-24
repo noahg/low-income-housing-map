@@ -2,7 +2,9 @@ mapboxAccessToken = 'pk.eyJ1Ijoibm9haGciLCJhIjoiaDZOQVlFayJ9.sKF3imccqs6EJE57Y3j
 googleDocStoryDatabase = 'https://spreadsheets.google.com/feeds/list/1PUVQ6n10JfoXcNiJm_pXnnl8q2IaO-DJrfkXtE35MiE/1/public/full?alt=json'
 attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imagery © <a href="http://mapbox.com">Mapbox</a>'
 mapboxBaseMaps = {
-  'light': 'mapbox.light'
+  'light': 'mapbox.light',
+  'sat': 'mapbox.satellite',
+  'streets': 'mapbox.streets',
 };
 startingBounds = [47.27, -120.82];
 
@@ -29,7 +31,7 @@ var map = L.map('map', {zoomControl: false}).setView(startingBounds, getZoom());
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken , {
   maxZoom: 18,
   attribution: attributionText,
-  id: mapboxBaseMaps.light
+  id: mapboxBaseMaps.streets
 }).addTo(map);
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
