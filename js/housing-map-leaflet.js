@@ -83,18 +83,14 @@ function onEachFeature(feature, layer) {
         click: zoomToFeature
     });
 
-    if (feature.properties.story_title) {
+    if (feature.properties.story_title && feature.properties.story_text) {
         layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title + 
           "</span><br> from Legislative District " + feature.properties.district_n
           + '<br><span"><img width="80%" src="' + feature.properties.story_photo_url +'"></span>'
           + '<p>' + feature.properties.story_text+ '</p>'
          );
     } else {
-      //layer.bindPopup("<span id='storyTitle'>" + "Story Title" +
-      //    "</span><br> from Legislative District " + feature.properties.district_n
-      //    + '<br><span"><img width="80%" src="assets/story-photo.png"></span>'
-      //    + '<p>' + 'Story Text Description' + '</p>'
-      //  );
+      //don't bind a pop-up if there isn't a title and text
     };
 };
 
@@ -126,7 +122,6 @@ $.getJSON(googleDocStoryDatabase, function(data) {
 
     if (this.gsx$storytitle.$t) {
         addField(id, 'story_title', this.gsx$storytitle.$t);
-        console.log(this.gsx$storytitle.$t);
     };
 
     if (this.gsx$storytext.$t) {
