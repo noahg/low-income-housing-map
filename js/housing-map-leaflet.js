@@ -90,7 +90,7 @@ function onEachFeature(feature, layer) {
           + '<p>' + feature.properties.story_text+ '</p>'
          );
     } else {
-      //don't bind a pop-up if there isn't a title and text
+      //don't bind a pop-up if there isn't a title and text data
     };
 };
 
