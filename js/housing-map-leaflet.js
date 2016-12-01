@@ -19,7 +19,6 @@ colorPalatte = {
 };
 
 /* SECTION: Initalize Map */
-
 function getZoom() {
   zoom = 7
   return zoom;
@@ -35,11 +34,61 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
+/* SECTION: Data Munging and Layer Loading */
+//join intesecting county data to leg shapes (by leg id) 
+function joinDataSetById(geojson_object, data_set_object) {
+  $(geojson_object.features).each(function() {
+    current_shape_index = this.properties.district_n;
+    this.properties.intersecting_counties = data_set_object[current_shape_index];
+  });
+};
+
+joinDataSetById(ldshapes, county_counts);
+
+function addField(id, field_name, field_value) {
+    ldshapes.features[id].properties[field_name] = field_value;
+};
+
+//fetch remote data
+$.getJSON(googleDocStoryDatabase, function(data) {
+
+  var entry = data.feed.entry;
+
+  $(entry).each(function(){
+
+    //manually join each rows  with remote data
+    //console.log(this.gsx$ld.$t + ' ' + this.gsx$storytitle.$t)
+    var id = this.gsx$ld.$t - 1
+
+    if (this.gsx$storytitle.$t) {
+        addField(id, 'story_title', this.gsx$storytitle.$t);
+    };
+
+    if (this.gsx$storytext.$t) {
+        addField(id, 'story_text', this.gsx$storytext.$t);
+    };
+
+    if (this.gsx$storyphotourl.$t) {
+        addField(id, 'story_photo_url', this.gsx$storyphotourl.$t);
+    };
+
+  });
+
+  //inside so it doesn't load layer until all added data is joined
+  console.log(ldshapes);
+  geojson = L.geoJson(ldshapes, {
+    style: style,
+    onEachFeature: onEachFeature
+  }).addTo(map);
+
+});
+
 /* SECTION: View Munging */
 //retrieve DOM nodes
 var districtNumberDiv = document.getElementById('districtNumber');
 var htfUnitsValueDiv = document.getElementById('htfUnitsValue');
 var homelessSchoolchildrenValueDiv = document.getElementById('homelessSchoolchildrenValue');
+var countiesTable = document.getElementById('countiesTable');
 
 //assign DOM nodes to stringified data fields
 districtNumber.update = function (props) {
@@ -58,11 +107,27 @@ homelessSchoolchildrenValueDiv.update = function (props) {
   this.innerHTML = string
 };
 
+function createRowString(row_object){
+
+  var row_string = row_object.county_name;
+
+  return row_string;
+
+};
+
+countiesTable.update = function (props) {
+
+  var table_string = createRowString(props.intersecting_counties[0]);
+
+  this.innerHTML =  table_string;
+};
+
 //Specify layer handling
 function updateSidebar(layer) {
     districtNumberDiv.update(layer.feature.properties);
     htfUnitsValueDiv.update(layer.feature.properties);
     homelessSchoolchildrenValueDiv.update(layer.feature.properties);
+    countiesTable.update(layer.feature.properties);
 };
 
 //define initial style 
@@ -120,52 +185,3 @@ function onEachFeature(feature, layer) {
       //don't bind a pop-up if there isn't a title and text data
     };
 };
-
-/* SECTION: Data Munging and Layer Loading */
-
-function addField(id, field_name, field_value) {
-    ldshapes.features[id].properties[field_name] = field_value;
-};
-
-//fetch remote data
-$.getJSON(googleDocStoryDatabase, function(data) {
-
-  var entry = data.feed.entry;
-
-  $(entry).each(function(){
-
-    //manually join each rows  with remote data
-    //console.log(this.gsx$ld.$t + ' ' + this.gsx$storytitle.$t)
-    var id = this.gsx$ld.$t - 1
-
-    if (this.gsx$storytitle.$t) {
-        addField(id, 'story_title', this.gsx$storytitle.$t);
-    };
-
-    if (this.gsx$storytext.$t) {
-        addField(id, 'story_text', this.gsx$storytext.$t);
-    };
-
-    if (this.gsx$storyphotourl.$t) {
-        addField(id, 'story_photo_url', this.gsx$storyphotourl.$t);
-    };
-
-  });
-
-  //inside so it doesn't load layer until all added data is joined
-  geojson = L.geoJson(ldshapes, {
-    style: style,
-    onEachFeature: onEachFeature
-  }).addTo(map);
-
-});
-
-//join intesecting county data (by leg id) to leg shapes
-function joinDataSetById(geojson_object, data_set_object) {
-  $(geojson_object.features).each(function() {
-    current_shape_index = this.properties.district_n;
-    this.properties.intersecting_counties = data_set_object[current_shape_index];
-  });
-};
-
-joinDataSetById(ldshapes, county_counts);
