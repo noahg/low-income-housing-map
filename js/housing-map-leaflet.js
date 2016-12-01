@@ -94,6 +94,10 @@ function stringifyIntegerField(number) {
   return numeral(number).format('0,0');
 };
 
+function stringifyFloatField(number) {
+  return number.toString();
+};
+
 //assign DOM nodes to fields
 districtNumber.update = function (props) {
   this.innerHTML = props.district_n
@@ -111,7 +115,9 @@ function createRowString(row_object){
 
   var row_string = '<div class="row">'
                     +'<div class="col-xs-3 col-sm-3 col-md-3 alignLeft">' + row_object.county_name + '</div>'
-                    +'<div class="col-xs-3 col-sm-3 col-md-3 alignCenter"><span class="tableValue logoRed">' + stringifyIntegerField(row_object.htf_units) + '</span></div>'
+                    +'<div class="col-xs-3 col-sm-3 col-md-3 alignCenter"><span class="tableValue logoRed">' + stringifyIntegerField(row_object.pit_unsheltered) + '</span></div>'
+                    +'<div class="col-xs-3 col-sm-3 col-md-3 alignCenter"><span class="tableValue logoDarkGray">$' + stringifyIntegerField(row_object.median_home_price) + '</span></div>'
+                    +'<div class="col-xs-3 col-sm-3 col-md-3 alignCenter"><span class="tableValue logoOrange">$' + stringifyFloatField(row_object.wage_1_bedroom) + '</span></div>'
                   +'</div>'
 
   return row_string;
