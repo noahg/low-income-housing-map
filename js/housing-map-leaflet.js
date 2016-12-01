@@ -35,7 +35,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
-/* SECTION: View */
+/* SECTION: View Munging */
 //retrieve DOM nodes
 var districtNumberDiv = document.getElementById('districtNumber');
 var htfUnitsValueDiv = document.getElementById('htfUnitsValue');
@@ -60,11 +60,9 @@ homelessSchoolchildrenValueDiv.update = function (props) {
 
 //Specify layer handling
 function updateSidebar(layer) {
-
     districtNumberDiv.update(layer.feature.properties);
     htfUnitsValueDiv.update(layer.feature.properties);
     homelessSchoolchildrenValueDiv.update(layer.feature.properties);
-
 };
 
 //define initial style 
@@ -79,7 +77,6 @@ function style(feature) {
 
 //define interactivity effects
 function highlightFeature(layer){
-
     layer.setStyle({
         weight: 3,
         color: colorPalatte.dark_gray,
@@ -162,3 +159,19 @@ $.getJSON(googleDocStoryDatabase, function(data) {
   }).addTo(map);
 
 });
+
+//Join intesecting county data (by leg id) to leg shapes
+function joinDataSetById(geojson_object, data_set_object) {
+
+
+  $(geojson_object.features).each(function() {
+
+    this.properties.intersecting_counties = 'test';
+
+    console.log(this.properties);
+
+});
+
+};
+
+joinDataSetById(this.ldshapes, county_counts);
