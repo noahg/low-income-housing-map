@@ -95,7 +95,7 @@ function stringifyIntegerField(number) {
 };
 
 function stringifyFloatField(number) {
-  return number.toString();
+  return numeral(number).format('00.00');
 };
 
 //assign DOM nodes to fields
@@ -124,11 +124,27 @@ function createRowString(row_object){
 
 };
 
+function createTableString(table_collection){
+
+  var tableString = '';
+  var numberOfRows = $(table_collection).toArray().length;
+  console.log(table_collection);
+
+  for (rowNumber = 0; rowNumber < numberOfRows; rowNumber++) {
+    currentRow = table_collection[rowNumber]
+    tableString += createRowString(currentRow);
+
+  };
+
+  return tableString;
+};
+
 countiesTable.update = function (props) {
 
-  var table_string = createRowString(props.intersecting_counties[0]);
-
-  this.innerHTML =  table_string;
+  //var table_string = createRowString(props.intersecting_counties[0]);
+  
+  //this.innerHTML =  table_string;
+  this.innerHTML = createTableString(props.intersecting_counties);
 };
 
 //Specify layer handling
