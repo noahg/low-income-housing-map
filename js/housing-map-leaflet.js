@@ -36,6 +36,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
 
+/* SECTION: Specify layer handling */
 //define style changes and view update functions
 function style(feature) {
     return {
