@@ -1,3 +1,4 @@
+/* SECTION: Constants */ 
 mapboxAccessToken = 'pk.eyJ1Ijoibm9haGciLCJhIjoiaDZOQVlFayJ9.sKF3imccqs6EJE57Y3j2SA';
 googleDocStoryDatabase = 'https://spreadsheets.google.com/feeds/list/1PUVQ6n10JfoXcNiJm_pXnnl8q2IaO-DJrfkXtE35MiE/1/public/full?alt=json'
 attributionText = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' + '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' + 'Imagery © <a href="http://mapbox.com">Mapbox</a>'
@@ -17,7 +18,7 @@ colorPalatte = {
   'dark_red': '#C4222A',
 };
 
-/* SECTION: Create Map */
+/* SECTION: Initalize Map */
 
 function getZoom() {
   zoom = 7
