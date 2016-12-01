@@ -12,6 +12,7 @@ body {
 
 .leaflet-popup-content {
 	margin: 1px 4px;
+    font-size: 1.2em;
 }
 
 #districtTitle {
@@ -120,10 +121,6 @@ body {
 		overflow-y: auto;
 	}
 
-}
-
-.leaflet-popup-content {
-	font-size: 1.2em;
 }
 
 
