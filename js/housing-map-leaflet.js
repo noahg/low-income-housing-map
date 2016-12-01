@@ -17,9 +17,7 @@ colorPalatte = {
   'dark_red': '#C4222A',
 };
 
-function addField(id, field_name, field_value) {
-    ldshapes.features[id].properties[field_name] = field_value;
-};
+/* SECTION: Create Map */
 
 function getZoom() {
   zoom = 7
@@ -36,10 +34,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
-var districtNumberDiv = document.getElementById('districtNumber');
-var htfUnitsValueDiv = document.getElementById('htfUnitsValue');
-var homelessSchoolchildrenValueDiv = document.getElementById('homelessSchoolchildrenValue');
 
+//define style changes and view update functions
 function style(feature) {
     return {
         weight: 2,
@@ -75,7 +71,6 @@ function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 };
 
-
 function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
@@ -94,6 +89,15 @@ function onEachFeature(feature, layer) {
     };
 };
 
+
+/* SECTION: View */
+
+//retrieve DOM nodes
+var districtNumberDiv = document.getElementById('districtNumber');
+var htfUnitsValueDiv = document.getElementById('htfUnitsValue');
+var homelessSchoolchildrenValueDiv = document.getElementById('homelessSchoolchildrenValue');
+
+//assign DOM nodes to Field Names
 districtNumber.update = function (props) {
   this.innerHTML = props.district_n
 };
@@ -110,14 +114,21 @@ homelessSchoolchildrenValueDiv.update = function (props) {
   this.innerHTML = string
 };
 
+/* SECTION: Data Munging and Layer Loading */
+
+function addField(id, field_name, field_value) {
+    ldshapes.features[id].properties[field_name] = field_value;
+};
+
+//fetch remote data
 $.getJSON(googleDocStoryDatabase, function(data) {
 
   var entry = data.feed.entry;
 
   $(entry).each(function(){
 
+    //manually join each rows  with remote data
     //console.log(this.gsx$ld.$t + ' ' + this.gsx$storytitle.$t)
-
     var id = this.gsx$ld.$t - 1
 
     if (this.gsx$storytitle.$t) {
@@ -134,6 +145,7 @@ $.getJSON(googleDocStoryDatabase, function(data) {
 
   });
 
+  //inside so it doesn't load layer until all added data is joined
   geojson = L.geoJson(ldshapes, {
     style: style,
     onEachFeature: onEachFeature
