@@ -35,71 +35,13 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
-
-/* SECTION: Specify layer handling */
-//define style changes and view update functions
-function style(feature) {
-    return {
-        weight: 2,
-        opacity: 1,
-        color: colorPalatte.green,
-        fillOpacity: 0
-    };
-};
-
-function highlightFeature(e) {
-    var layer = e.target;
-
-    layer.setStyle({
-        weight: 3,
-        color: colorPalatte.dark_gray,
-        fillOpacity: 0.2,
-    });
-
-    districtNumberDiv.update(layer.feature.properties);
-    htfUnitsValueDiv.update(layer.feature.properties);
-    homelessSchoolchildrenValueDiv.update(layer.feature.properties);
-
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
-    }
-};
-
-function resetHighlight(e) {
-    geojson.resetStyle(e.target);
-};
-
-function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-};
-
-function onEachFeature(feature, layer) {
-    layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
-        click: zoomToFeature
-    });
-
-    if (feature.properties.story_title && feature.properties.story_text) {
-        layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title + 
-          "</span><br> from Legislative District " + feature.properties.district_n
-          + '<br><span"><img width="80%" src="' + feature.properties.story_photo_url +'"></span>'
-          + '<p>' + feature.properties.story_text+ '</p>'
-         );
-    } else {
-      //don't bind a pop-up if there isn't a title and text data
-    };
-};
-
-
 /* SECTION: View */
-
 //retrieve DOM nodes
 var districtNumberDiv = document.getElementById('districtNumber');
 var htfUnitsValueDiv = document.getElementById('htfUnitsValue');
 var homelessSchoolchildrenValueDiv = document.getElementById('homelessSchoolchildrenValue');
 
-//assign DOM nodes to Field Names
+//assign DOM nodes to stringified data fields
 districtNumber.update = function (props) {
   this.innerHTML = props.district_n
 };
@@ -114,6 +56,72 @@ homelessSchoolchildrenValueDiv.update = function (props) {
   var number = props.homeless_s
   var string = numeral(number).format('0,0');
   this.innerHTML = string
+};
+
+//Specify layer handling
+function updateSidebar(layer) {
+
+    districtNumberDiv.update(layer.feature.properties);
+    htfUnitsValueDiv.update(layer.feature.properties);
+    homelessSchoolchildrenValueDiv.update(layer.feature.properties);
+
+};
+
+//define initial style 
+function style(feature) {
+    return {
+        weight: 2,
+        opacity: 1,
+        color: colorPalatte.green,
+        fillOpacity: 0
+    };
+};
+
+//define interactivity effects
+function highlightFeature(layer){
+
+    layer.setStyle({
+        weight: 3,
+        color: colorPalatte.dark_gray,
+        fillOpacity: 0.2,
+    });
+};
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+};
+
+function focusOnFeature(e) {
+    var layer = e.target;
+
+    highlightFeature(layer);
+    updateSidebar(layer);
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+};
+
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+};
+
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: focusOnFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+
+    if (feature.properties.story_title && feature.properties.story_text) {
+        layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title + 
+          "</span><br> from Legislative District " + feature.properties.district_n
+          + '<br><span"><img width="80%" src="' + feature.properties.story_photo_url +'"></span>'
+          + '<p>' + feature.properties.story_text+ '</p>'
+         );
+    } else {
+      //don't bind a pop-up if there isn't a title and text data
+    };
 };
 
 /* SECTION: Data Munging and Layer Loading */
@@ -154,4 +162,3 @@ $.getJSON(googleDocStoryDatabase, function(data) {
   }).addTo(map);
 
 });
-
