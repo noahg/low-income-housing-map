@@ -84,32 +84,35 @@ $.getJSON(googleDocStoryDatabase, function(data) {
 });
 
 /* SECTION: View Munging */
-//retrieve DOM nodes
+//retrieve changing DOM nodes
 var districtNumberDiv = document.getElementById('districtNumber');
 var htfUnitsValueDiv = document.getElementById('htfUnitsValue');
 var homelessSchoolchildrenValueDiv = document.getElementById('homelessSchoolchildrenValue');
 var countiesTable = document.getElementById('countiesTable');
 
-//assign DOM nodes to stringified data fields
+function stringifyIntegerField(number) {
+  return numeral(number).format('0,0');
+};
+
+//assign DOM nodes to fields
 districtNumber.update = function (props) {
   this.innerHTML = props.district_n
 };
 
 htfUnitsValueDiv.update = function (props) {
-  var number = props.totalunits
-  var string = numeral(number).format('0,0');
-  this.innerHTML = string
+  this.innerHTML = stringifyIntegerField(props.totalunits)
 };
 
 homelessSchoolchildrenValueDiv.update = function (props) {
-  var number = props.homeless_s
-  var string = numeral(number).format('0,0');
-  this.innerHTML = string
+  this.innerHTML = stringifyIntegerField(props.homeless_s)
 };
 
 function createRowString(row_object){
 
-  var row_string = row_object.county_name;
+  var row_string = '<div class="row">'
+                    +'<div class="col-xs-3 col-sm-3 col-md-3 alignLeft">' + row_object.county_name + '</div>'
+                    +'<div class="col-xs-3 col-sm-3 col-md-3 alignCenter"><span class="tableValue logoRed">' + stringifyIntegerField(row_object.htf_units) + '</span></div>'
+                  +'</div>'
 
   return row_string;
 
