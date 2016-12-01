@@ -75,7 +75,6 @@ $.getJSON(googleDocStoryDatabase, function(data) {
   });
 
   //inside so it doesn't load layer until all added data is joined
-  console.log(ldshapes);
   geojson = L.geoJson(ldshapes, {
     style: style,
     onEachFeature: onEachFeature
@@ -125,25 +124,18 @@ function createRowString(row_object){
 };
 
 function createTableString(table_collection){
-
   var tableString = '';
   var numberOfRows = $(table_collection).toArray().length;
-  console.log(table_collection);
 
   for (rowNumber = 0; rowNumber < numberOfRows; rowNumber++) {
     currentRow = table_collection[rowNumber]
     tableString += createRowString(currentRow);
-
   };
 
   return tableString;
 };
 
 countiesTable.update = function (props) {
-
-  //var table_string = createRowString(props.intersecting_counties[0]);
-  
-  //this.innerHTML =  table_string;
   this.innerHTML = createTableString(props.intersecting_counties);
 };
 
