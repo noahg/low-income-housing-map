@@ -160,18 +160,12 @@ $.getJSON(googleDocStoryDatabase, function(data) {
 
 });
 
-//Join intesecting county data (by leg id) to leg shapes
+//join intesecting county data (by leg id) to leg shapes
 function joinDataSetById(geojson_object, data_set_object) {
-
-
   $(geojson_object.features).each(function() {
-
-    this.properties.intersecting_counties = 'test';
-
-    console.log(this.properties);
-
-});
-
+    current_shape_index = this.properties.district_n;
+    this.properties.intersecting_counties = data_set_object[current_shape_index];
+  });
 };
 
-joinDataSetById(this.ldshapes, county_counts);
+joinDataSetById(ldshapes, county_counts);
