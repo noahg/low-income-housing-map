@@ -48,7 +48,7 @@ body {
 
 #sidebarFooter {
 	background-color: inherit /*#DF5330*/;
-	height: 15px;
+	padding: 1em;
 }
 
 .fieldValue {
