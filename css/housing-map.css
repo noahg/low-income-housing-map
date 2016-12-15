@@ -92,8 +92,12 @@ body {
 	font-size: 0.8em;
 }
 
+#countiesTable {
+	margin-bottom: 10px;
+}
 .tableHeader {
 	font-size: 0.8em;
+	text-decoration: underline;
 }
 
 .tableValue {
