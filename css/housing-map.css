@@ -46,13 +46,18 @@ body {
 	font-weight: bold;
 }
 
-#sidebarFooter {
-	background-color: inherit /*#DF5330*/;
-	padding: 1em;
+.sidebarFooter {
+	background: rgba(255,255,255,0.6);
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .fieldValue {
 	font-size: 1.5em;
+}
+
+.shareButtonWrapper {
+	padding-top: 20px;
 }
 
 .logoGreen {
