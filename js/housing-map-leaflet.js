@@ -72,6 +72,10 @@ $.getJSON(googleDocStoryDatabase, function(data) {
         addField(id, 'story_photo_url', this.gsx$storyphotourl.$t);
     };
 
+    if (this.gsx$storylinkurl.$t) {
+        addField(id, 'story_link_url', this.gsx$storylinkurl.$t);
+    };
+
   });
 
   //inside so it doesn't load layer until all added data is joined
@@ -196,7 +200,8 @@ function onEachFeature(feature, layer) {
         layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title + 
           "</span><br> from Legislative District " + feature.properties.district_n
           + '<br><span"><img width="80%" src="' + feature.properties.story_photo_url +'"></span>'
-          + '<p>' + feature.properties.story_text+ '</p>'
+          + '<p>' + feature.properties.story_text + '</p>'
+          + '<p><a href="' + feature.properties.story_link_url + '">Read More</a></p>'
          );
     } else {
       //don't bind a pop-up if there isn't a title and text data
