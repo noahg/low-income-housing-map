@@ -52,6 +52,11 @@ body {
 	padding-bottom: 20px;
 }
 
+.textBox {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
 .fieldValue {
 	font-size: 1.5em;
 }
