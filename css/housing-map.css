@@ -57,6 +57,10 @@ body {
 	padding-bottom: 20px;
 }
 
+.fieldTitle {
+	font-size: 1.3em;
+}
+
 .fieldValue {
 	font-size: 1.5em;
 }
@@ -142,4 +146,7 @@ body {
 	height:40px;
 }
 
+.htf-units {
+	margin-bottom: 2em;
+}
 

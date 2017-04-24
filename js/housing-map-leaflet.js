@@ -90,7 +90,6 @@ $.getJSON(googleDocStoryDatabase, function(data) {
 //retrieve changing DOM nodes
 var districtNumberDiv = document.getElementById('districtNumber');
 var htfUnitsValueDiv = document.getElementById('htfUnitsValue');
-var homelessSchoolchildrenValueDiv = document.getElementById('homelessSchoolchildrenValue');
 var countiesTable = document.getElementById('countiesTable');
 
 function stringifyIntegerField(number) {
@@ -108,10 +107,6 @@ districtNumber.update = function (props) {
 
 htfUnitsValueDiv.update = function (props) {
   this.innerHTML = stringifyIntegerField(props.totalunits)
-};
-
-homelessSchoolchildrenValueDiv.update = function (props) {
-  this.innerHTML = stringifyIntegerField(props.homeless_s)
 };
 
 function createRowString(row_object){
@@ -147,7 +142,6 @@ countiesTable.update = function (props) {
 function updateSidebar(layer) {
     districtNumberDiv.update(layer.feature.properties);
     htfUnitsValueDiv.update(layer.feature.properties);
-    homelessSchoolchildrenValueDiv.update(layer.feature.properties);
     countiesTable.update(layer.feature.properties);
 };
 
