@@ -190,14 +190,22 @@ function onEachFeature(feature, layer) {
         click: zoomToFeature
     });
 
-    if (feature.properties.story_title && feature.properties.story_text) {
-        layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title + 
-          "</span><br> from Legislative District " + feature.properties.district_n
+    if (feature.properties.story_photo_url && feature.properties.story_title) {
+        layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title 
+          + "</span><br> from Legislative District " + feature.properties.district_n
           + '<br><span"><img width="80%" src="' + feature.properties.story_photo_url +'"></span>'
           + '<p>' + feature.properties.story_text + '</p>'
           + '<p><a href="' + feature.properties.story_link_url + '">Read More</a></p>'
          );
+    };
+
+   if (!feature.properties.story_photo_url && feature.properties.story_title) {
+        layer.bindPopup("<span id='storyTitle'>" + feature.properties.story_title
+          + "</span><br> from Legislative District " + feature.properties.district_n
+          + '<p>' + feature.properties.story_text + '</p>'
+          + '<p><a href="' + feature.properties.story_link_url + '">Read More</a></p>'
+         );
     } else {
-      //don't bind a pop-up if there isn't a title and text data
+      //don't create a pop up if there isn't data
     };
 };
