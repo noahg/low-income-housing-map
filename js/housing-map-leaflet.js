@@ -195,7 +195,7 @@ function onEachFeature(feature, layer) {
           + "</span><br> from Legislative District " + feature.properties.district_n
           + '<br><span"><img width="80%" src="' + feature.properties.story_photo_url +'"></span>'
           + '<p>' + feature.properties.story_text + '</p>'
-          + '<p><a href="' + feature.properties.story_link_url + '">Read More</a></p>'
+          + '<p><a href="' + feature.properties.story_link_url + '" target="_blank">Read More</a></p>'
          );
     };
 
