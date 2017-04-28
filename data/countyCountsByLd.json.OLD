@@ -1,3 +1,4 @@
+//OLD because fixed pit_total values in v2.js directly as a time saving shortcut
 var county_counts = {
    "1": [
       {
